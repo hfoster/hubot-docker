@@ -1,0 +1,38 @@
+- include_vars: api_keys.yml
+
+- name: "Change directory to hubot's home"
+  command: cd /opt/hubot
+  become: yes
+  become_user: hubot
+
+- name: "Create a hubot called Hugh"
+  command: yo hubot --owner="Hartnell Foster <hartnell.foster@googlemail.com>" --name="Hugh" --description="A Friendly Test Instance Robot" --adapter="slack"
+  become: yes
+  become_user: hubot
+
+- name: "Delete hubot-scripts.json"
+  file:
+    path: /opt/hubot/hubot-scripts.json
+    state: absent
+
+- name: "We're not using Heroku, so we don't need the keepalive..."
+  lineinfile:
+    path: /opt/hubot/external-scripts.json
+    regexp: \"hubot-heroku-keepalive\"
+    state: absent
+  become: yes
+  become_user: hubot
+
+- name: "Create the systemd service"
+  template:
+    src: hubot.service.j2
+    dest: /etc/systemd/system/hubot.service
+    mode: 0755
+  with_items:
+    - "{{ keys }}"
+
+- name: "Start the hubot service"
+  service:
+    name: hubot
+    enabled: yes
+    state: started

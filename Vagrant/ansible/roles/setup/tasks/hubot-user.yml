@@ -1,0 +1,15 @@
+- name: "Create hubot group"
+  group:
+    name: hubot
+    gid: 501
+    state: present
+    system: yes
+
+- name: "Create hubot user"
+  user:
+    name: hubot
+    uid: 501
+    group: hubot
+    home: /opt/hubot
+    state: present
+    system: yes

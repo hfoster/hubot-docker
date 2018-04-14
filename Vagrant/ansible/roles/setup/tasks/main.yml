@@ -1,0 +1,8 @@
+- name: "Networking setup"
+  include: network.yml
+
+- name: "Installing tools"
+  include: tools.yml
+
+- name: "User and group creation"
+  include: hubot-user.yml

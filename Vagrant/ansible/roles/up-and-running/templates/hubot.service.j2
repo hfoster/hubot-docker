@@ -1,0 +1,18 @@
+[Unit]
+Description=Hubot service
+Requires=network.target
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/hubot
+User=hubot
+
+Environment=HUBOT_SLACK_TOKEN={{ item.hubot_slack_token }}
+Environment=HUBOT_LOG_LEVEL=INFO
+ExecStart=/opt/hubot/bin/hubot --adapter slack
+ExecStop=kill -9 $(ps -ef | grep node | grep hubot | grep -v grep | awk '{print $2}')
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

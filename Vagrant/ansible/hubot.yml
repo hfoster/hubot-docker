@@ -1,0 +1,21 @@
+- name: "Base system setup"
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - setup
+    - redis
+
+- name: "Install Hubot"
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - hubot
+
+- name: "Get Hubot Up & Running"
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - up-and-running

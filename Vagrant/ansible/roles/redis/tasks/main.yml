@@ -1,0 +1,2 @@
+- name: "Redis up and running as a persistent brain for Hubot"
+  include: redis-service.yml

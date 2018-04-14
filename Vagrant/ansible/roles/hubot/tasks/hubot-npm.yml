@@ -1,0 +1,10 @@
+- name: "Install hubot and friends"
+  npm:
+    name: "{{ item }}"
+    state: latest
+    global: yes
+  with_items:
+    - yo
+    - coffeescript
+    - generator-hubot
+    - hubot

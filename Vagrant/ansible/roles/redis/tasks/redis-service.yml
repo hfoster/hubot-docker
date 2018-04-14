@@ -1,0 +1,5 @@
+- name: "Start Redis service"
+  service:
+    name: redis
+    enabled: yes
+    state: started
